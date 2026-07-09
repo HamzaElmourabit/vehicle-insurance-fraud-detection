@@ -5,7 +5,7 @@ import joblib
 
 
 # Charger le modèle
-model = joblib.load("fraud_detection_xgb.pkl")
+model = joblib.load("chaabi_lld_fraud_detection_xgb.pkl")
 
 
 st.title("🚗 Chaabi LLD - Fraud Detection AI")

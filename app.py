@@ -14,7 +14,7 @@ st.set_page_config(
 # ---------------------------------------
 # Charger le pipeline
 # ---------------------------------------
-pipeline = joblib.load("chaabi_lld_ai_model.pkl")
+pipeline = joblib.load("chaabi_lld_fraud_pipeline1.pkl")
 
 # ---------------------------------------
 # Titre

@@ -14,8 +14,8 @@ st.set_page_config(
 # ---------------------------------------
 # Charger le modèle et les colonnes
 # ---------------------------------------
-model = joblib.load("chaabi_lld_fraud_detection_xgb.pkl")
-feature_columns = joblib.load("feature_columns.pkl")
+model = joblib.load("chaabi_lld_fraud_detection_xgb (2).pkl")
+feature_columns = joblib.load("feature_columns (1).pkl")
 
 # ---------------------------------------
 # Titre

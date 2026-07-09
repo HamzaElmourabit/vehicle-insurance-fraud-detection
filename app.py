@@ -12,10 +12,8 @@ st.set_page_config(
 )
 
 # ---------------------------------------
-# Charger le pipeline
+# Charger le modèle et les colonnes
 # ---------------------------------------
-import joblib
-
 model = joblib.load("chaabi_lld_fraud_detection_xgb.pkl")
 feature_columns = joblib.load("feature_columns.pkl")
 
@@ -25,8 +23,8 @@ feature_columns = joblib.load("feature_columns.pkl")
 st.title("🚗 Chaabi LLD - Insurance Fraud Detection")
 
 st.write("""
-Cette application détecte automatiquement les dossiers
-susceptibles d'être frauduleux grâce à un modèle **XGBoost**.
+Cette application détecte automatiquement les dossiers suspects
+de fraude grâce à un modèle **XGBoost**.
 """)
 
 st.divider()
@@ -41,6 +39,7 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file is not None:
 
+    # Lecture du fichier
     df = pd.read_csv(uploaded_file)
 
     st.subheader("Aperçu du fichier")
@@ -51,23 +50,42 @@ if uploaded_file is not None:
 
         try:
 
+            # -------------------------------
+            # Encodage automatique
+            # -------------------------------
+            df_encoded = pd.get_dummies(df)
+
+            # Ajouter les colonnes manquantes
+            for col in feature_columns:
+                if col not in df_encoded.columns:
+                    df_encoded[col] = 0
+
+            # Supprimer les colonnes en trop
+            df_encoded = df_encoded.reindex(
+                columns=feature_columns,
+                fill_value=0
+            )
+
+            # -------------------------------
             # Prédictions
-            predictions = pipeline.predict(df)
+            # -------------------------------
+            predictions = model.predict(df_encoded)
 
-            probabilities = pipeline.predict_proba(df)[:, 1]
+            probabilities = model.predict_proba(df_encoded)[:, 1]
 
+            # -------------------------------
             # Résultats
+            # -------------------------------
             results = df.copy()
 
             results["Predicted_Fraud"] = predictions
-            results["Fraud_Probability"] = probabilities
+            results["Fraud_Probability"] = probabilities.round(4)
 
-            # Statistiques
             total = len(results)
             fraud = int(predictions.sum())
             normal = total - fraud
 
-            st.success("Prédiction terminée avec succès.")
+            st.success("✅ Prédiction terminée avec succès.")
 
             c1, c2, c3 = st.columns(3)
 
@@ -79,7 +97,7 @@ if uploaded_file is not None:
 
             st.dataframe(results)
 
-            st.subheader("Fraudes détectées")
+            st.subheader("🚨 Fraudes détectées")
 
             st.dataframe(
                 results[

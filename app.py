@@ -14,7 +14,10 @@ st.set_page_config(
 # ---------------------------------------
 # Charger le pipeline
 # ---------------------------------------
-pipeline = joblib.load("chaabi_lld_fraud_pipeline1.pkl")
+import joblib
+
+model = joblib.load("chaabi_lld_fraud_detection_xgb.pkl")
+feature_columns = joblib.load("feature_columns.pkl")
 
 # ---------------------------------------
 # Titre

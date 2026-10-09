@@ -60,3 +60,112 @@ graph TD;
     D --> E[Entraînement des Modèles - XGBoost/RandomForest];
     E --> F[Évaluation des performances];
     F --> G[Prédiction / Déploiement];
+```
+
+---
+
+## 📁 Structure du Projet
+
+```text
+vehicle-insurance-fraud-detection/
+│
+├── data/
+│   ├── raw/                  # Données brutes
+│   └── processed/            # Données nettoyées et préparées
+│
+├── notebooks/
+│   ├── 01_eda.ipynb          # Analyse exploratoire
+│   └── 02_modeling.ipynb     # Prétraitement, entraînement et évaluation
+│
+├── src/
+│   ├── __init__.py
+│   ├── preprocessing.py      # Pipeline de transformation de données
+│   ├── train.py              # Script d'entraînement des modèles
+│   └── predict.py            # Script d'inférence / prédiction
+│
+├── app.py                    # Application Web (Streamlit / Flask) pour les prédictions
+├── requirements.txt          # Dépendances Python
+├── .gitignore                # Fichiers à ignorer par Git
+└── README.md                 # Documentation du projet
+```
+
+---
+
+## 🚀 Installation et Configuration
+
+### Prérequis
+* Python 3.8+
+* `pip` ou `conda`
+
+### Étapes d'installation
+
+1. **Cloner le dépôt Git :**
+   ```bash
+   git clone https://github.com/HamzaElmourabit/vehicle-insurance-fraud-detection.git
+   cd vehicle-insurance-fraud-detection
+   ```
+
+2. **Créer et activer un environnement virtuel :**
+   ```bash
+   # Sur Linux / macOS
+   python3 -m venv venv
+   source venv/bin/activate
+
+   # Sur Windows
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+
+3. **Installer les dépendances :**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## 💻 Utilisation
+
+### 1. Exécution de l'entraînement
+Pour lancer le pipeline complet de préparation des données et d'entraînement du modèle :
+```bash
+python src/train.py
+```
+
+### 2. Lancement de l'interface graphique (optionnel)
+Si une application **Streamlit** est disponible pour tester les prédictions en direct :
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📈 Résultats & Performances
+
+Les modèles ont été évalués principalement sur le **Recall** (sensibilité) pour maximiser la détection des fraudes et sur l'**AUC-ROC** :
+
+| Modèle | Précision (Precision) | Rappel (Recall) | F1-Score | ROC-AUC |
+| :--- | :---: | :---: | :---: | :---: |
+| **Régression Logistique** | 0.42 | 0.85 | 0.56 | 0.78 |
+| **Random Forest** | 0.65 | 0.78 | 0.71 | 0.84 |
+| **XGBoost (Optimal)** | **0.72** | **0.88** | **0.79** | **0.89** |
+
+---
+
+## 🛠️ Technologies Utilisées
+
+* **Langage :** Python
+* **Analyse de Données :** Pandas, NumPy
+* **Visualisation :** Matplotlib, Seaborn
+* **Machine Learning :** Scikit-Learn, XGBoost, LightGBM, Imbalanced-Learn
+* **Déploiement / Interface :** Streamlit / Flask
+
+---
+
+## 👤 Auteur
+
+**Hamza El Mourabit**
+* GitHub : [@HamzaElmourabit](https://github.com/HamzaElmourabit)
+* LinkedIn : [Hamza El Mourabit](https://linkedin.com/in/)
+
+---
+⭐ *N'hésitez pas à laisser une étoile si ce projet vous a été utile !*
